@@ -1,0 +1,38 @@
+{
+	"homeInfo": {
+		"title": "首页",
+		"href": "homepage.html"
+	},
+	"logoInfo": {
+		"title": "设备管理系统",
+		"image": "images/logo1.png",
+		"href": ""
+	},
+	"menuInfo": [{
+			"title": "管理员,欢迎您！",
+			"icon": "fa fa-lemon-o",
+			"href": "",
+			"target": "_self",
+			"child": [{
+				"title": "设备管理",
+				"href": "table-equipments.html",
+				"icon": "fa fa-dot-circle-o",
+				"target": "_self"
+			},
+			{
+				"title": "设备状态查询",
+				"href": "table-equipments-status.html",
+				"icon": "fa fa-tachometer",
+				"target": "_self"
+			},
+			{
+				"title": "设备租借审批",
+				"href": "apply.html",
+				"icon": "fa fa-bars",
+				"target": "_self"
+			}
+			]
+		}
+
+	]
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+		<link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<style>
+			.top-panel {
+				border: 1px solid #eceff9;
+				border-radius: 5px;
+				text-align: center;
+			}
+
+			.top-panel>.layui-card-body {
+				height: 60px;
+			}
+
+			.top-panel-number {
+				line-height: 60px;
+				font-size: 30px;
+				border-right: 1px solid #eceff9;
+			}
+
+			.top-panel-tips {
+				line-height: 30px;
+				font-size: 12px
+			}
+		</style>
+	</head>
+	<body>
+		<!--<div class="layuimini-container">-->
+		<div class="layuimini-main">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-xs12 layui-col-md3">
+					<div class="layui-card top-panel">
+						<div class="layui-card-header">用户总数</div>
+						<div class="layui-card-body">
+							<div class="layui-row layui-col-space5">
+								<div class="layui-col-xs9 layui-col-md9 top-panel-number">
+									1111
+								</div>
+								<div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+									昨日新增 <a style="color: #1aa094">▲22</a><br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-xs12 layui-col-md3">
+					<div class="layui-card top-panel">
+						<div class="layui-card-header">设备总数</div>
+						<div class="layui-card-body">
+							<div class="layui-row layui-col-space5">
+								<div class="layui-col-xs9 layui-col-md9 top-panel-number">
+									18494
+								</div>
+								<div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+									已借出 <a style="color: #1aa094">8797</a><br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-xs12 layui-col-md3">
+					<div class="layui-card top-panel">
+						<div class="layui-card-header">今日借出总数</div>
+						<div class="layui-card-body">
+							<div class="layui-row layui-col-space5">
+								<div class="layui-col-xs9 layui-col-md9 top-panel-number">
+									336
+								</div>
+								<div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+									比昨天 <a style="color: #1aa094">▲0.12</a><br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-xs12 layui-col-md3">
+					<div class="layui-card top-panel">
+						<div class="layui-card-header">今日归还总数</div>
+						<div class="layui-card-body">
+							<div class="layui-row layui-col-space5">
+								<div class="layui-col-xs9 layui-col-md9 top-panel-number">
+									248
+								</div>
+								<div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+									比昨日 <a style="color: #bd3004">▼0.06</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-xs12 layui-col-md9">
+					<div id="echarts-records" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+				</div>
+				<div class="layui-col-xs12 layui-col-md3">
+					<div id="echarts-pies" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+				</div>
+			</div>
+		</div>
+		<!--</div>-->
+		<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+		<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+		<script>
+			layui.use(['layer', 'echarts'], function() {
+				var $ = layui.jquery,
+					layer = layui.layer,
+					echarts = layui.echarts;
+
+				/**
+				 * 报表功能
+				 */
+				var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+
+				var optionRecords = {
+					title: {
+						text: '设备借出图'
+					},
+					tooltip: { //触发
+						trigger: 'axis', //轴触发
+						axisPointer: { //坐标轴指示器
+							type: 'cross', //十字准星
+							label: {
+								backgroundColor: '#6a7985'
+							}
+						}
+					},
+					legend: { //提示条
+						data: [ '借出设备数', '归还设备数']
+					},
+					toolbox: { //图片下载
+						feature: {
+							saveAsImage: {}
+						}
+					},
+					grid: { //设置位置
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false, //边界从0开始
+						data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+					}],
+					yAxis: [{
+						type: 'value'
+					}],
+					series: [
+						{
+							name: '借出设备数',
+							type: 'line',
+							stack: '总量',
+							areaStyle: {},
+							data: [220, 182, 191, 234, 290, 330, 310]
+						},
+						{
+							name: '归还设备数',
+							type: 'line',
+							stack: '总量',
+							areaStyle: {},
+							data: [320, 332, 301, 334, 390, 330, 320]
+						}
+					]
+				};
+				echartsRecords.setOption(optionRecords);
+
+
+				/**
+				 * 玫瑰图表
+				 */
+				var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden'); //获得dom节点
+				var optionPies = {
+					title: {
+						text: '设备分布图',
+						left: 'center'
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: '{a} <br/>{b} : {c} ({d}%)'
+					},
+					legend: {
+						orient: 'vertical',
+						left: 'left',
+						data: ['设备在库数', '设备借出数']
+					},
+					series: [{
+						name: '设备分布',
+						type: 'pie',	//饼图
+						radius: '55%',
+						center: ['50%', '60%'],
+						roseType: 'radius',
+						data: [{
+								value: 9861,
+								name: '设备在库数'
+							},
+							{
+								value: 8633,
+								name: '设备借出数'
+							}
+						],
+						emphasis: {
+							itemStyle: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}]
+				};
+				echartsPies.setOption(optionPies);
+				// echarts 窗口缩放自适应
+				window.onresize = function() {
+					echartsRecords.resize();
+				}
+			});
+		</script>
+	</body>
+</html>

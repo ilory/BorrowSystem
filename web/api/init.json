@@ -1,0 +1,36 @@
+{
+	"homeInfo": {
+		"title": "首页",
+		"href": "homepage.html"
+	},
+	"logoInfo": {
+		"title": "设备管理系统",
+		"image": "../image/bg1.jpg",
+		"href": ""
+	},
+	"menuInfo": [{
+		"title": "总管理员，欢迎您！",
+		"icon": "fa fa-address-book",
+		"href": "",
+		"target": "_self",
+		"child": [{
+				"title": "管理员账号管理",
+				"href": "table-admin.html",
+				"icon": "fa fa-home",
+				"target": "_self"
+			},
+			{
+				"title": "用户账号管理",
+				"href": "table-user.html",
+				"icon": "fa fa-tachometer",
+				"target": "_self"
+			},
+			{
+				"title": "密码修改",
+				"href": "password-change.html",
+				"icon": "fa fa-tags",
+				"target": "_self"
+			}
+		]
+	}]
+}

@@ -1,0 +1,31 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "eid": "1",
+	  "ename": "Honor 20s",
+      "uid": "10000",
+	  "uname": "王安石",
+      "btime": "2020-10-29",
+      "rtime": "2021-11-20"
+    },
+	{
+	  "eid": "2",
+	  "ename": "HUAWEI MATE40 PRO",
+	  "uid": "10001",
+	  "uname": "王维",
+	  "btime": "2020-1-1",
+	  "rtime": "2022-1-17"
+	},
+	{
+	  "eid": "4",
+	  "ename": "REDMI K40",
+	  "uid": "10004",
+	  "uname": "王勃",
+	  "btime": "2020-10-39",
+	  "rtime": "2020-11-20"
+	}
+  ]
+}

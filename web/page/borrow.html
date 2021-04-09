@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>设备租赁</title>
+		<link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+		<link rel="stylesheet" href="../js/lay-module/step-lay/step.css" media="all">
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main">
+				<div class="layui-fluid">
+					<div class="layui-card">
+						<div class="layui-card-body" style="padding-top: 40px;">
+							<div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
+								<div carousel-item>
+									<div>
+										<form class="layui-form"
+											style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
+											<div class="layui-form-item">
+											    <label class="layui-form-label required">设备ID</label>
+											    <div class="layui-input-block">
+											        <input type="text" name="eid" lay-verify="required" lay-reqtext="ID名不能为空" placeholder="请输入设备ID" value="" class="layui-input">
+											    </div>
+											</div>
+											<div class="layui-form-item">
+												<label class="layui-form-label">归还日期</label>
+												<div class="layui-input-block">
+													<input type="text" name="rtime" id="date" lay-verify="date"
+														placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<div class="layui-input-block">
+													<button class="layui-btn" lay-submit lay-filter="formStep">
+														&emsp;确定租借&emsp;
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div>
+										<form class="layui-form"
+											style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
+											<div class="layui-form-item">
+												<label class="layui-form-label">租借人ID</label>
+												<div class="layui-input-block">
+													<div class="layui-form-mid layui-word-aux">10001</div>
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<label class="layui-form-label">设备ID</label>
+												<div class="layui-input-block">
+													<div class="layui-form-mid layui-word-aux">00001
+													</div>
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<label class="layui-form-label">归还日期</label>
+												<div class="layui-input-block">
+													<div class="layui-form-mid layui-word-aux">
+														<span style="font-size: 18px;color: #333;">2021-3-20</span>
+													</div>
+												</div>
+											</div>
+						
+											<div class="layui-form-item">
+												<div class="layui-input-block">
+											<!-- 		<button type="button"
+														class="layui-btn layui-btn-primary pre">上一步</button> -->
+													<button class="layui-btn" lay-submit lay-filter="formStep2">
+														&emsp;审批成功&emsp;
+													</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div>
+										<div style="text-align: center;margin-top: 90px;">
+											<i class="layui-icon layui-circle"
+												style="color: white;font-size:30px;font-weight:bold;background: #52C41A;padding: 20px;line-height: 80px;">&#xe605;</i>
+											<div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
+												租借成功
+											</div>
+											<!-- <div style="font-size: 14px;color: #666;margin-top: 20px;"></div> -->
+										</div>
+										<div style="text-align: center;margin-top: 50px;">
+											<button class="layui-btn next">继续租借</button>
+											<!-- <button class="layui-btn layui-btn-primary">返回首页</button> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+		<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+		<script>
+			layui.use(['form', 'step','laydate'], function() {
+				var $ = layui.$,
+					form = layui.form,
+					step = layui.step,
+					laydate = layui.laydate;
+					let now = new Date();
+					let x = now.getTime();
+					  //日期
+					  laydate.render({
+					    elem: '#date'
+						,value: new Date(x)//时间戳
+					  });
+
+				step.render({
+					elem: '#stepForm',
+					filter: 'stepForm',
+					width: '100%', //设置容器宽度
+					stepWidth: '750px',
+					height: '500px',
+					stepItems: [{
+						title: '填写申请'
+					}, {
+						title: '等待管理员审批'
+					}, {
+						title: '完成'
+					}]
+				});
+
+				
+
+				form.on('submit(formStep)', function(data) {
+					step.next('#stepForm');
+					$.ajax({
+						url: '../applyForEquipment',
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							"eid": data.field.eid,
+							"rtime": data.field.rtime
+						},
+						success: function (status) {
+							if (status==0){
+								layer.alert("成功");
+							}else {
+								layer.alert("失败");
+							}
+						}
+					})
+					return false;
+				});
+
+				form.on('submit(formStep2)', function(data) {
+					step.next('#stepForm');
+
+					return false;
+				});
+
+				$('.pre').click(function() {
+					step.pre('#stepForm');
+				});
+
+				$('.next').click(function() {
+					step.next('#stepForm');
+				});
+			})
+		</script>
+	</body>
+</html>

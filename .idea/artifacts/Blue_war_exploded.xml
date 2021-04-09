@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Blue:war exploded">
+    <output-path>$PROJECT_DIR$/web</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Blue/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Blue" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="jackson-annotations-2.2.3" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/JavaMD5.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jackson-core-2.2.3.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-logging-1.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jackson-databind-2.2.3.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.8.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jackson-annotations-2.2.3.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.17-bin.jar" />
+          <element id="library" level="project" name="commons-beanutils-1.8.0" />
+          <element id="library" level="project" name="commons-logging-1.2" />
+          <element id="library" level="module" name="JUnit4" module-name="Blue" />
+          <element id="library" level="project" name="JavaMD5" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

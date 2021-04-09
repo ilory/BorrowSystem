@@ -1,0 +1,37 @@
+{
+	"homeInfo": {
+		"title": "首页",
+		"href": "homepage.html"
+	},
+	"logoInfo": {
+		"title": "设备管理系统",
+		"image": "images/logo1.png",
+		"href": ""
+	},
+	"menuInfo": [{
+		"title": "欢迎使用设备系统！",
+		"icon": "fa fa-slideshare",
+		"href": "",
+		"target": "_self",
+		"child": [{
+				"title": "设备状态查询",
+				"href": "table-brrow-equipments.html",
+				"icon": "fa fa-tags",
+				"target": "_self"
+			},
+			{
+				"title": "设备租赁",
+				"href": "borrow.html",
+				"icon": "fa fa-edit",
+				"target": "_self"
+			},
+			{
+				"title": "设备归还",
+				"href": "return.html",
+				"icon": "fa fa-superpowers",
+				"target": "_self"
+			}
+
+		]
+	}]
+}

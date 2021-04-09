@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>设备管理系统登录</title>
+		<link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css">
+		<link rel="stylesheet" href="css/login.css">
+		<script src="lib/layui-v2.5.5/layui.js"></script>
+	</head>
+
+	<body id="login">
+		<div class="login">
+			<h2>设备管理系统</h2>
+			<form class="layui-form" method="post" target="_blank" action="">
+				<div class="layui-form-item">
+					<input type="username" name="user" placeholder="用户名" class="layui-input">
+					<i class="layui-icon input-icon">&#xe66f;</i>
+				</div>
+				<div class="layui-form-item">
+					<input type="password" name="pwd" placeholder="密码" class="layui-input">
+					<i class="layui-icon input-icon">&#xe673;</i>
+				</div>
+				 <div class="layui-form-item">
+				    <label class="layui-form-label lable" >身份选择&nbsp</label>
+				    <div class="layui-input-block">
+				      <select name="identity" lay-verify="required" lay-filter="iden" class="choose">
+				        <option value=""></option>
+				        <option value="1">超级管理员</option>
+				        <option value="2">管理员</option>
+				        <option value="3">用户</option>
+				      </select>
+				    </div>
+				  </div>
+				<div class="layui-form-item">
+					<button style="width: 100%" class="layui-btn" lay-submit lay-filter="login">立即登录</button>
+				</div>
+			</form>
+
+			<script>
+				layui.use('form', function() {
+					var form = layui.form,
+						layer = layui.layer,
+						$ = layui.jquery;
+						form.render();//渲染
+
+					if (top.location != self.location) top.location = self.location;
+
+					form.on('submit(login)', function(data) {
+						console.log(data);
+						data = data.field;
+
+						if (data.user == '') {
+							layer.msg('用户名不能为空');
+							return false;
+						}
+						if (data.pwd == '') {
+							layer.msg('密码不能为空');
+							return false;
+						}
+						var dataform = [ data.user, data.pwd ,data.identity];
+						$.ajax({
+							url: 'http://localhost:8085/Blue/login',
+							type: 'POST',
+							dataType: 'json',
+							data: {"dataform": JSON.stringify(dataform)},
+							success: function (map) {
+								var object = eval(map);
+								if(object.status==1){
+									//页面加载
+									layer.load();
+									// 通过选择的值跳转到不同的页面
+									if (data.identity == '1'&&object.level==1) {
+										// 一秒钟后跳转
+										setTimeout(function() {
+											window.location.href = 'page/index-superadmin.html';
+										}, 1000)
+									} else if (data.identity == '2'&&object.level==2) {
+										setTimeout(function() {
+											window.location.href = 'page/index-admin.html';
+										}, 1000)
+									} else if (data.identity == '3'&&object.level==3) {
+										setTimeout(function() {
+											window.location.href = 'page/index-user.html';
+										}, 1000)
+									}
+								}else{
+									layer.alert("密码或身份错误");
+								}
+							}
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</body>
+
+</html>

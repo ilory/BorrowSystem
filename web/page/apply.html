@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>设备租借审批</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+		<link rel="stylesheet" href="../css/public.css" media="all">
+	</head>
+	<body>
+		<div class="layuimini-container">
+			<div class="layuimini-main">
+				<script type="text/html" id="toolbarDemo">
+					<div class="layui-btn-container">
+						<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="approve"> 同意租借 </button>
+					</div>
+				</script>
+
+				<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+				<script type="text/html" id="currentTableBar">
+					<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">详细信息</a>
+				</script>
+
+			</div>
+		</div>
+		<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+		<script>
+			layui.use(['form', 'table'], function() {
+				var $ = layui.jquery,
+					form = layui.form,
+					table = layui.table;
+
+				table.render({
+					elem: '#currentTableId',
+					url: '../getApplying',
+					toolbar: '#toolbarDemo',
+					defaultToolbar: ['filter', 'exports', 'print'],
+					cols: [
+						[{
+								type: "checkbox",
+								width: 50
+							},
+							{
+								field: 'eid',
+								width: 100,
+								title: '设备ID',
+								sort: true
+							},
+							{
+								field: 'ename',
+								minWidth: 200,
+								title: '设备名',
+								sort: true
+							},
+							{
+								field: 'uid',
+								width: 100,
+								title: '申请用户ID'
+							},
+							{
+								field: 'uname',
+								width: 100,
+								title: '申请用户'
+							},
+							{
+								field: 'btime',
+								minWidth: 80,
+								title: '申请租借时间',
+								sort: true,
+								templet: function (data) {
+									return layui.util.toDateString(new Date(data.btime).getTime(),"yyyy-MM-dd");
+								}
+							},
+							{
+								field: 'rtime',
+								minWidth: 80,
+								title: '预计归还时间',
+								sort: true,
+								templet: function (data) {
+									return layui.util.toDateString(new Date(data.rtime).getTime(),"yyyy-MM-dd");
+								}
+							},
+						]
+					],
+					page: { //支持传入 laypage 组件的所有参数
+						layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+							,
+						groups: 1 //只显示 1 个连续页码
+							,
+						first: false //不显示首页
+							,
+						last: false //不显示尾页
+					}
+				});
+
+				/**
+				 * toolbar监听事件
+				 */
+				table.on('toolbar(currentTableFilter)', function(obj) {
+					if (obj.event === 'approve') { // 监听审批操作
+						var checkStatus = table.checkStatus('currentTableId'),
+							dataform = checkStatus.data;
+						$.ajax({
+							url: '../approve',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								"dataform": JSON.stringify(dataform),
+							},
+							success: function (status) {
+								if(status==0){
+									layer.alert("成功");
+								}else{
+									layer.alert("失败");
+								}
+							}
+						})
+					}
+				});
+
+				//监听表格复选框选择
+				table.on('checkbox(currentTableFilter)', function(obj) {
+					console.log(obj)
+				});
+			});
+		</script>
+
+	</body>
+</html>

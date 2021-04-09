@@ -1,0 +1,27 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "eid": "1",
+	  "ename": "Honor 20s",
+      "borrow": "在库"
+    },
+	{
+	  "eid": "2",
+	  "ename": "HUAWEI MATE40 PRO",
+	  "borrow": "在库"
+	},
+	{
+	  "eid": "3",
+	  "ename": "Honor V20",
+	  "borrow": "在库"
+	},
+	{
+	  "eid": "4",
+	  "ename": "REDMI K40",
+	  "borrow": "在库"
+	}
+  ]
+}
