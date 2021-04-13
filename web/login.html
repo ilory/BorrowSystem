@@ -59,7 +59,7 @@
 						}
 						var dataform = [ data.user, data.pwd ,data.identity];
 						$.ajax({
-							url: 'http://localhost:8085/Blue/login',
+							url: '../Blue/login',
 							type: 'POST',
 							dataType: 'json',
 							data: {"dataform": JSON.stringify(dataform)},

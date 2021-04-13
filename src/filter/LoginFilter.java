@@ -34,8 +34,9 @@ public class LoginFilter implements Filter {
         String login = config.getInitParameter("login");
 
         System.out.println(uri);
-        if(uri.contains(login)||uri.endsWith("css")||uri.equals("js")||uri.endsWith("ico")
-            ||uri.endsWith("jpg")||uri.endsWith("png")||uri.endsWith("jpeg")||uri.endsWith("woff")){
+        if(uri.contains(login)||uri.endsWith("css")||uri.equals("js")||uri.endsWith("ico")||
+            uri.endsWith("jpg")||uri.endsWith("png")||uri.endsWith("jpeg")||uri.endsWith("scss")||
+                uri.endsWith("less")||uri.contains("layui")){
             filterChain.doFilter(request,response);
             System.out.println("放行进入登录");
         }else{
